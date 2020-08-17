@@ -1,0 +1,51 @@
+<!-- Copyright (c) Microsoft Corporation. All rights reserved.
+     Licensed under the MIT License. -->
+
+<html>
+<body>
+    <button style="margin-bottom: 20px;" type="button" id="sign-in">Prove you are a verified credential ninja!</button>
+    <div id="qrcode"></div>
+    <div style="margin-top:20px" id="message"></div>
+    <a id="deeplink" style="display: none;margin-top: 10px;">Tap to open Authenticator on mobile</a>
+    
+    <script src="qrcode.min.js"></script>
+    <script>
+        var signIn = document.getElementById('sign-in');
+        var signOut = document.getElementById('sign-out');
+        var display = document.getElementById('display');
+        var qrcode = new QRCode("qrcode", { width: 300, height: 300 });
+        var deeplink = document.getElementById('deeplink');
+
+        signIn.addEventListener('click', () => {
+            fetch('/presentation-request')
+            .then(function(response) {
+                response.text().then(function(message) {
+                    if( /Android/i.test(navigator.userAgent) ) {
+                        console.log(`Android device! Using deep link (${message}).`);
+                        window.location.href = message; setTimeout(function () {
+                        window.location.href = "https://play.google.com/store/apps/details?id=com.azure.authenticator"; }, 2000);
+                    } else {
+                        console.log(`Not Android. Generating QR code encoded with ${message}`);
+                        qrcode.makeCode(message);
+                    }
+                }).catch(error => {
+                    console.log(error.message);
+                })
+            }).catch(error => {
+                console.log(error.message);
+            })
+        })
+
+        setInterval( function () {
+            fetch('/presentation-response')
+            .then(response => response.text())
+            .catch(error => document.getElementById("message").innerHTML = error)
+            .then(response => {
+                if (response.length > 0)
+                    document.getElementById("message").innerHTML = response;
+            })
+        }, 1000);
+        
+    </script>
+</body>
+</html>
