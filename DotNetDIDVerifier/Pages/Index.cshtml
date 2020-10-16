@@ -54,7 +54,7 @@
                 })
 
                 var checkStatus = setInterval(function () {
-                    fetch('/VC/presentation-response')
+                    fetch('/presentation-response')
                         .then(response => response.text())
                         .catch(error => document.getElementById("message").innerHTML = error)
                         .then(response => {

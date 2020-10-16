@@ -21,10 +21,10 @@ var { CryptoBuilder,
 
 /////////// OpenID Connect Client Registration
 const client = {
-  client_name: 'Sample Verifier',
+  client_name: 'Sample Verifier .NET Wrapper',
   logo_uri: 'https://storagebeta.blob.core.windows.net/static/ninja-icon.png',
   tos_uri: 'https://www.microsoft.com/servicesagreement',
-  client_purpose: 'To check if you know how to use verifiable credentials.'
+  client_purpose: 'To check if you know how to use verifiable credentials from .NET'
 }
 
 ////////// Verifier's DID configuration values
