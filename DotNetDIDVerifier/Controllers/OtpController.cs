@@ -136,6 +136,8 @@ namespace DIDVerifier.Controllers
                                                     'Gender':  'M'
                                                 }");
             */
+
+            // change the below to point to your CRM system to get user attributes
             string contents = "";
             string url = "https://cljungdemob2c-mockup-api.azurewebsites.net/api/UNHCRDynamicsMockup?code=s51pmdGk57CK5vobnxtG5lHV8eXHWPDF7duIMmsCklc2L/I2Kff7Ng==";
             HttpClient client = new HttpClient();
